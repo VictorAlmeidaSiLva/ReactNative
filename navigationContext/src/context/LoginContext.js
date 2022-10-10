@@ -17,6 +17,7 @@ export default function LoginContext({ children }) {
         }
         else
             setUser(null);
+            throw new Error("Usuário ou senha invalidos")
     }
 
     const logout = () => {

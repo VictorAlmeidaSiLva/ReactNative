@@ -1,33 +1,41 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Button, Text, View, TouchableHighlight, StyleSheet, TextInput } from "react-native";
 import { ContextoLogin } from "../context/LoginContext";
 
 export default function Login() {
-    const { user, authorized, login, logout } = React.useContext(ContextoLogin);
-    const [ email, setEmail ] = React.useState();
-    const [ password, setPassword ] = React.useState();
+    const navigation = useNavigation();
+    const { login } = React.useContext(ContextoLogin);
+    const [email, setEmail] = React.useState('Fulaninho@gmail.com');
+    const [password, setPassword] = React.useState('123');
+
+    const [ erro, setErro ] = React.useState(null)
+
+
+    const loginHandle = () => {
+        try {
+            setErro(null)
+            login(email, password);
+            navigation.navigate('Home')
+        }
+        catch(err) {
+            console.log(err.message);
+            setErro(err.message)
+        }
+    }
 
     return (
         <View style={styles.space}>
-            {authorized && (
-                <View>
-                    <Text>Olá {user.name}!</Text>
-                    <TouchableHighlight style={styles.button} title='Register' onPress={() => logout()}>
-                        <Text style={styles.buttonText}>Logout</Text>
-                    </TouchableHighlight>
 
-                </View>
-            )}
-            {!authorized && (
-                <View>
-                    <TextInput style={styles.input} placeholder='Email' onChangeText={setEmail} value={email}></TextInput>
-                    <TextInput style={styles.input} placeholder='Senha' onChangeText={setPassword} value={password}></TextInput>
-                    <TouchableHighlight style={styles.button} title='Register' onPress={() => login(email, password)}>
-                        <Text style={styles.buttonText}>Login</Text>
-                    </TouchableHighlight>
+            <View>
+                <TextInput style={styles.input} placeholder='Email' onChangeText={setEmail} value={email}></TextInput>
+                <TextInput style={styles.input} placeholder='Senha' onChangeText={setPassword} value={password}></TextInput>
+                {erro && (<Text>{erro}</Text>)}
+                <TouchableHighlight style={styles.button} title='Login' onPress={() => loginHandle()}>
+                    <Text style={styles.buttonText}>Login</Text>
+                </TouchableHighlight>
 
-                </View>
-            )}
+            </View>
         </View>
     )
 }
