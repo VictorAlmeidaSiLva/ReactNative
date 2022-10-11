@@ -10,6 +10,7 @@ import RegisterScreen from "./src/pages/RegisterScreen";
 import LoginScreen from './src/pages/LoginScreen';
 import LoginContext from './src/context/LoginContext';
 import AppRoutes from './src/routes/AppRoutes';
+import {NewsProvider} from './src/context/NewsContext'
 
 
 
@@ -18,10 +19,12 @@ import AppRoutes from './src/routes/AppRoutes';
 export default function App() {
   return (
     <LoginContext>
-      <NavigationContainer>
-        <AppRoutes />
-      </NavigationContainer>
-      <StatusBar backgroundColor='#FF7E01' barStyle='light-content' translucent={false} />
+      <NewsProvider>
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
+        <StatusBar backgroundColor='#FF7E01' barStyle='light-content' translucent={false} />
+      </NewsProvider>
     </LoginContext>
   );
 }

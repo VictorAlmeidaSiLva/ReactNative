@@ -6,6 +6,7 @@ import LoginScreen from "../pages/LoginScreen";
 import NewsScreen from "../pages/NewsScreen";
 import RegisterScreen from "../pages/RegisterScreen";
 import UserScreen from "../pages/UserScreen";
+import NewsDetailPage from "../pages/NewsDetailPage"
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,6 +29,7 @@ export default function AppRoutes() {
             {authorized ? (
                 <>
                     <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+                    <Stack.Screen name="NewsDetail" component={NewsDetailPage} />
                 </>
             ) : (
                 <>

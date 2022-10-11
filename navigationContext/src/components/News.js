@@ -1,16 +1,35 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableHighlight, View } from "react-native";
 
-export default function News (props) {
+export default function News({ news, onPress }) {
     return (
-        <View style={styles.container}>
-            <Text></Text>
-        </View>
+        <TouchableHighlight style={styles.container} onPress={onPress}>
+            <>
+                <Image source={news.image} style={styles.image} />
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>{news.title}</Text>
+                    <Text style={styles.subject}>{news.subject}</Text>
+                </View>
+            </>
+        </TouchableHighlight>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
-        alignItems: "center"
+        flexDirection: "row",
+        marginBottom: 5,
     },
-})
+    image: {
+        width: 150,
+        height: 100
+    },
+    textContainer: {
+        padding: 10
+    },
+    title: {
+        fontSize: 24,
+    },
+    subject: {
+        fontSize: 20,
+    }
+});
